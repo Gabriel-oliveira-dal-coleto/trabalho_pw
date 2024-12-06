@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dicionário Químico - Sua Enciclopédia de Química Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa; /* Fundo claro */
+            color: #343a40; /* Texto escuro */
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #4a90e2 0%, #50e3c2 100%);
+            color: #ffffff;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.8em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        nav {
+            background: #000000;
+            color: #fff;
+            padding: 1rem 0;
+        }
+        nav ul {
+            padding: 0;
+            list-style: none;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 20px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background 0.3s, transform 0.3s;
+        }
+        nav ul li a:hover {
+            background: #50e3c2;
+            transform: scale(1.1); /* Efeito de escala ao passar o mouse */
+        }
+        .hero {
+            background: url('https://example.com/chemistry-lab.jpg') no-repeat center center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #4a90e2 0%, #50e3c2 100%);
+            z-index: 1;
+        }
+        .hero-content {
+            z-index: 2;
+        }
+        .hero h2 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        .search-bar {
+            margin: 20px 0;
+            text-align: center;
+        }
+        #search-input {
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ffffff;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+        #search-input:focus {
+            border-color: #50e3c2; /* Cor ao focar */
+            outline: none; /* Remove contorno padrão */
+        }
+        .features {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        .feature {
+            flex: 1;
+            min-width: 280px; /* Largura mínima */
+            margin: 20px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Sombra ao passar o mouse */
+        }
+        .feature i {
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: #50e3c2; /* Cor do ícone */
+        }
+        footer {
+            background: #ffffff;
+            color: #000000;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 40px;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Dicionário Químico</h1>
+        </div>
+    </header>
+            
+    <nav>
+        <ul>
+            <li><a href="index2.html">Página Inicial</a></li>
+            <li><a href="elementos.html">Elementos Químicos</a></li>
+            <li><a href="quimicos.html">Químicos Famosos</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h2>Explore o Fascinante Mundo da Química</h2>
+            <p>Seu guia completo para elementos químicos e cientistas revolucionários</p>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-atom"></i>
+                <h3>Elementos Químicos</h3>
+                <p>Explore todos os elementos da tabela periódica, suas propriedades e aplicações.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-flask"></i>
+                <h3>Compostos</h3>
+                <p>Descubra compostos químicos comuns e suas reações fascinantes.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-user-graduate"></i>
+                <h3>Químicos Famosos</h3>
+                <p>Conheça os cientistas que revolucionaram o campo da química.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Dicionário Químico. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value.toLowerCase();
+                if (searchTerm.includes('elemento') || searchTerm.includes('átomo')) {
+                    window.location.href = '/elementos (2)';
+                } else if (searchTerm.includes('químico') || searchTerm.includes('cientista')) {
+                    window.location.href = '/quimicos';
+                } else {
+                    alert('Pesquisa não encontrada. Por favor, tente novamente ou navegue pelas seções disponíveis.');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,287 @@
+<html><head><base href="https://chemweb.com/periodic-table/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tabela Periódica Completa - Dicionário Químico</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #4a90e2 0%, #50e3c2 100%);
+    margin: 0;
+    padding: 20px;
+  }
+  .periodic-table {
+    display: grid;
+    grid-template-columns: repeat(18, 1fr);
+    gap: 2px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .element {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .element:hover {
+    transform: scale(1.1);
+    z-index: 1;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  }
+  .symbol {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  .atomic-number {
+    font-size: 0.8em;
+  }
+  .name {
+    font-size: 0.7em;
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+  }
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+  }
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .close:hover {
+    color: #000;
+  }
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  .lanthanides, .actinides {
+    grid-column: span 18;
+    text-align: center;
+    font-size: 0.8em;
+    padding: 5px;
+    background-color: #eee;
+  }
+</style>
+</head>
+<body>
+  <h1>Tabela Periódica Completa - Dicionário Químico</h1>
+  <div class="periodic-table" id="periodicTable"></div>
+  
+  <div id="elementModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDescription"></p>
+    </div>
+  </div>
+
+  <script>
+    const elements = [
+      {symbol: 'H', name: 'Hidrogênio', number: 1},
+      {symbol: 'He', name: 'Hélio', number: 2},
+      {symbol: 'Li', name: 'Lítio', number: 3},
+      {symbol: 'Be', name: 'Berílio', number: 4},
+      {symbol: 'B', name: 'Boro', number: 5},
+      {symbol: 'C', name: 'Carbono', number: 6},
+      {symbol: 'N', name: 'Nitrogênio', number: 7},
+      {symbol: 'O', name: 'Oxigênio', number: 8},
+      {symbol: 'F', name: 'Flúor', number: 9},
+      {symbol: 'Ne', name: 'Néon', number: 10},
+      {symbol: 'Na', name: 'Sódio', number: 11},
+      {symbol: 'Mg', name: 'Magnésio', number: 12},
+      {symbol: 'Al', name: 'Alumínio', number: 13},
+      {symbol: 'Si', name: 'Silício', number: 14},
+      {symbol: 'P', name: 'Fósforo', number: 15},
+      {symbol: 'S', name: 'Enxofre', number: 16},
+      {symbol: 'Cl', name: 'Cloro', number: 17},
+      {symbol: 'Ar', name: 'Argônio', number: 18},
+      {symbol: 'K', name: 'Potássio', number: 19},
+      {symbol: 'Ca', name: 'Cálcio', number: 20},
+      {symbol: 'Sc', name: 'Escândio', number: 21},
+      {symbol: 'Ti', name: 'Titânio', number: 22},
+      {symbol: 'V', name: 'Vanádio', number: 23},
+      {symbol: 'Cr', name: 'Cromo', number: 24},
+      {symbol: 'Mn', name: 'Manganês', number: 25},
+      {symbol: 'Fe', name: 'Ferro', number: 26},
+      {symbol: 'Co', name: 'Cobalto', number: 27},
+      {symbol: 'Ni', name: 'Níquel', number: 28},
+      {symbol: 'Cu', name: 'Cobre', number: 29},
+      {symbol: 'Zn', name: 'Zinco', number: 30},
+      {symbol: 'Ga', name: 'Gálio', number: 31},
+      {symbol: 'Ge', name: 'Germânio', number: 32},
+      {symbol: 'As', name: 'Arsênio', number: 33},
+      {symbol: 'Se', name: 'Selênio', number: 34},
+      {symbol: 'Br', name: 'Bromo', number: 35},
+      {symbol: 'Kr', name: 'Criptônio', number: 36},
+      {symbol: 'Rb', name: 'Rubídio', number: 37},
+      {symbol: 'Sr', name: 'Estrôncio', number: 38},
+      {symbol: 'Y', name: 'Ítrio', number: 39},
+      {symbol: 'Zr', name: 'Zircônio', number: 40},
+      {symbol: 'Nb', name: 'Nióbio', number: 41},
+      {symbol: 'Mo', name: 'Molibdênio', number: 42},
+      {symbol: 'Tc', name: 'Tecnécio', number: 43},
+      {symbol: 'Ru', name: 'Rutênio', number: 44},
+      {symbol: 'Rh', name: 'Ródio', number: 45},
+      {symbol: 'Pd', name: 'Paládio', number: 46},
+      {symbol: 'Ag', name: 'Prata', number: 47},
+      {symbol: 'Cd', name: 'Cádmio', number: 48},
+      {symbol: 'In', name: 'Índio', number: 49},
+      {symbol: 'Sn', name: 'Estanho', number: 50},
+      {symbol: 'Sb', name: 'Antimônio', number: 51},
+      {symbol: 'Te', name: 'Telúrio', number: 52},
+      {symbol: 'I', name: 'Iodo', number: 53},
+      {symbol: 'Xe', name: 'Xenônio', number: 54},
+      {symbol: 'Cs', name: 'Césio', number: 55},
+      {symbol: 'Ba', name: 'Bário', number: 56},
+      {symbol: 'La', name: 'Lantânio', number: 57},
+      {symbol: 'Ce', name: 'Cério', number: 58},
+      {symbol: 'Pr', name: 'Praseodímio', number: 59},
+      {symbol: 'Nd', name: 'Neodímio', number: 60},
+      {symbol: 'Pm', name: 'Promécio', number: 61},
+      {symbol: 'Sm', name: 'Samário', number: 62},
+      {symbol: 'Eu', name: 'Európio', number: 63},
+      {symbol: 'Gd', name: 'Gadolínio', number: 64},
+      {symbol: 'Tb', name: 'Térbio', number: 65},
+      {symbol: 'Dy', name: 'Disprósio', number: 66},
+      {symbol: 'Ho', name: 'Hólmio', number: 67},
+      {symbol: 'Er', name: 'Érbio', number: 68},
+      {symbol: 'Tm', name: 'Túlio', number: 69},
+      {symbol: 'Yb', name: 'Itérbio', number: 70},
+      {symbol: 'Lu', name: 'Lutécio', number: 71},
+      {symbol: 'Hf', name: 'Háfnio', number: 72},
+      {symbol: 'Ta', name: 'Tântalo', number: 73},
+      {symbol: 'W', name: 'Tungstênio', number: 74},
+      {symbol: 'Re', name: 'Rênio', number: 75},
+      {symbol: 'Os', name: 'Ósmio', number: 76},
+      {symbol: 'Ir', name: 'Irídio', number: 77},
+      {symbol: 'Pt', name: 'Platina', number: 78},
+      {symbol: 'Au', name: 'Ouro', number: 79},
+      {symbol: 'Hg', name: 'Mercúrio', number: 80},
+      {symbol: 'Tl', name: 'Tálio', number: 81},
+      {symbol: 'Pb', name: 'Chumbo', number: 82},
+      {symbol: 'Bi', name: 'Bismuto', number: 83},
+      {symbol: 'Po', name: 'Polônio', number: 84},
+      {symbol: 'At', name: 'Astato', number: 85},
+      {symbol: 'Rn', name: 'Radônio', number: 86},
+      {symbol: 'Fr', name: 'Frâncio', number: 87},
+      {symbol: 'Ra', name: 'Rádio', number: 88},
+      {symbol: 'Ac', name: 'Actínio', number: 89},
+      {symbol: 'Th', name: 'Tório', number: 90},
+      {symbol: 'Pa', name: 'Protactínio', number: 91},
+      {symbol: 'U', name: 'Urânio', number: 92},
+      {symbol: 'Np', name: 'Neptúnio', number: 93},
+      {symbol: 'Pu', name: 'Plutônio', number: 94},
+      {symbol: 'Am', name: 'Amerício', number: 95},
+      {symbol: 'Cm', name: 'Cúrio', number: 96},
+      {symbol: 'Bk', name: 'Berquélio', number: 97},
+      {symbol: 'Cf', name: 'Califórnio', number: 98},
+      {symbol: 'Es', name: 'Einstênio', number: 99},
+      {symbol: 'Fm', name: 'Férmio', number: 100},
+      {symbol: 'Md', name: 'Mendelévio', number: 101},
+      {symbol: 'No', name: 'Nobélio', number: 102},
+      {symbol: 'Lr', name: 'Laurêncio', number: 103},
+      {symbol: 'Rf', name: 'Rutherfordio', number: 104},
+      {symbol: 'Db', name: 'Dúbnio', number: 105},
+      {symbol: 'Sg', name: 'Seabórgio', number: 106},
+      {symbol: 'Bh', name: 'Bóhrio', number: 107},
+      {symbol: 'Hs', name: 'Hássio', number: 108},
+      {symbol: 'Mt', name: 'Meitnério', number: 109},
+      {symbol: 'Ds', name: 'Darmstádtio', number: 110},
+      {symbol: 'Rg', name: 'Roentgênio', number: 111},
+      {symbol: 'Cn', name: 'Copernício', number: 112},
+      {symbol: 'Nh', name: 'Nihônio', number: 113},
+      {symbol: 'Fl', name: 'Fleróvio', number: 114},
+      {symbol: 'Mc', name: 'Moscóvio', number: 115},
+      {symbol: 'Lv', name: 'Livermório', number: 116},
+      {symbol: 'Ts', name: 'Tenesso', number: 117},
+      {symbol: 'Og', name: 'Oganessônio', number: 118}
+    ];
+
+    const periodicTable = document.getElementById('periodicTable');
+    const modal = document.getElementById('elementModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const closeBtn = document.getElementsByClassName('close')[0];
+
+    elements.forEach(element => {
+      const elementDiv = document.createElement('div');
+      elementDiv.className = 'element';
+      elementDiv.innerHTML = `
+        <div class="atomic-number">${element.number}</div>
+        <div class="symbol">${element.symbol}</div>
+        <div class="name">${element.name}</div>
+      `;
+      elementDiv.style.gridColumn = getGridColumn(element.number);
+      elementDiv.style.gridRow = getGridRow(element.number);
+      elementDiv.onclick = () => showElementInfo(element);
+      periodicTable.appendChild(elementDiv);
+    });
+
+    // Add placeholders for lanthanides and actinides
+    const lanthanides = document.createElement('div');
+    lanthanides.className = 'lanthanides';
+    lanthanides.textContent = 'Lantanídeos (57-71)';
+    lanthanides.style.gridRow = '6';
+    periodicTable.appendChild(lanthanides);
+
+    const actinides = document.createElement('div');
+    actinides.className = 'actinides';
+    actinides.textContent = 'Actinídeos (89-103)';
+    actinides.style.gridRow = '7';
+    periodicTable.appendChild(actinides);
+
+    function getGridColumn(number) {
+      if (number <= 2) return number;
+      if (number <= 18) return number - 2;
+      if (number <= 57 || (number >= 72 && number <= 89) || number >= 104) {
+        return ((number - 1) % 18) + 1;
+      }
+      return ((number - 57) % 15) + 3;
+    }
+
+    function getGridRow(number) {
+      if (number <= 2) return 1;
+      if (number <= 18) return 2;
+      if (number <= 36) return 3;
+      if (number <= 54) return 4;
+      if (number <= 71) return 8;
+      if (number <= 86) return 5;
+      if (number <= 103) return 9;
+      return 6;
+    }
+
+    function showElementInfo(element) {
+      modalTitle.textContent = `${element.name} (${element.symbol})`;
+      modalDescription.textContent = `Número atômico: ${element.number}`;
+      modal.style.display = 'block';
+    }
+
+    closeBtn.onclick = () => {
+      modal.style.display = 'none';
+    }
+
+    window.onclick = (event) => {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>

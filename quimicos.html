@@ -1,0 +1,234 @@
+<html><head><base>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Químicos Famosos - Dicionário Interativo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #000000;
+  
+  
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #4a90e2 0%, #50e3c2 100%);
+    }
+    h1 {
+      text-align: center;
+      color: #020303;
+    }
+    #search-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #search-input {
+      width: 300px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    #letter-filter {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .letter-btn {
+      display: inline-block;
+      padding: 5px 10px;
+      margin: 2px;
+      background-color: #000000;
+      color: white;
+      text-decoration: none;
+      border-radius: 3px;
+      transition: background-color 0.3s;
+    }
+    .letter-btn:hover {
+      background: linear-gradient(135deg, #4a90e2 0%, #50e3c2 100%);
+    }
+    #chemists-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    .chemist-card {
+      width: 300px;
+      margin: 10px;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 5px;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .chemist-card:hover {
+      transform: translateY(-5px);
+    }
+    .chemist-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .chemist-info {
+      padding: 15px;
+    }
+    .chemist-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .chemist-description {
+      font-size: 14px;
+    }
+  </style>
+  </head>
+  <body>
+    <h1>Químicos Famosos - Dicionário Interativo</h1>
+    
+    <div id="search-container">
+      <input type="text" id="search-input" placeholder="Pesquisar químico...">
+    </div>
+    
+    <div id="letter-filter">
+      <a href="#" class="letter-btn" data-letter="all">Todos</a>
+      <a href="#" class="letter-btn" data-letter="A">A</a>
+      <a href="#" class="letter-btn" data-letter="B">B</a>
+      <a href="#" class="letter-btn" data-letter="C">C</a>
+      <a href="#" class="letter-btn" data-letter="D">D</a>
+      <a href="#" class="letter-btn" data-letter="E">E</a>
+      <a href="#" class="letter-btn" data-letter="F">F</a>
+      <a href="#" class="letter-btn" data-letter="G">G</a>
+      <a href="#" class="letter-btn" data-letter="H">H</a>
+      <a href="#" class="letter-btn" data-letter="I">I</a>
+      <a href="#" class="letter-btn" data-letter="J">J</a>
+      <a href="#" class="letter-btn" data-letter="K">K</a>
+      <a href="#" class="letter-btn" data-letter="L">L</a>
+      <a href="#" class="letter-btn" data-letter="M">M</a>
+      <a href="#" class="letter-btn" data-letter="N">N</a>
+      <a href="#" class="letter-btn" data-letter="O">O</a>
+      <a href="#" class="letter-btn" data-letter="P">P</a>
+      <a href="#" class="letter-btn" data-letter="Q">Q</a>
+      <a href="#" class="letter-btn" data-letter="R">R</a>
+      <a href="#" class="letter-btn" data-letter="S">S</a>
+      <a href="#" class="letter-btn" data-letter="T">T</a>
+      <a href="#" class="letter-btn" data-letter="U">U</a>
+      <a href="#" class="letter-btn" data-letter="V">V</a>
+      <a href="#" class="letter-btn" data-letter="W">W</a>
+      <a href="#" class="letter-btn" data-letter="X">X</a>
+      <a href="#" class="letter-btn" data-letter="Y">Y</a>
+      <a href="#" class="letter-btn" data-letter="Z">Z</a>
+    </div>
+    
+    <div id="chemists-container"></div>
+  
+    <script>
+      const chemists = [
+        {
+          name: "Antoine Lavoisier",
+          description: "Considerado o 'pai da química moderna', ele estabeleceu a lei da conservação da massa e ajudou a desenvolver a nomenclatura química.",
+          image:"antonio.jpg"
+
+        },
+        {
+          name: "Dmitri Mendeleev",
+          description: "Criou a tabela periódica dos elementos, organizando-os com base em suas propriedades e prevendo a existência de elementos ainda não descobertos.",
+          image: "Dmitri_Mendeleev.jpg"
+        },
+        {
+          name: "Marie Curie",
+          description: "Pioneira na pesquisa sobre radioatividade, foi a primeira mulher a ganhar um Prêmio Nobel e a única a ganhar em duas áreas diferentes (Física e Química).",
+          image: "marie-curie.jpg"
+        },
+        {
+          name: "Linus Pauling",
+          description: "Recebeu o Prêmio Nobel em Química e em Paz, sendo um defensor da paz nuclear e conhecido por seu trabalho em química quântica e ligações químicas.",
+          image: "linus-pauling.jpg"
+        },
+        {
+          name: "Robert H. Grubbs",
+          description: "Recebeu o Prêmio Nobel de Química por seu trabalho em química de olefinas e na metátese de olefinas, que revolucionou a síntese orgânica.",
+          image: "robert-grubbs.jpg"
+        },
+        {
+          name: "Ahmed Zewail",
+          description: "Conhecido como o 'pai da química femtossegundo', recebeu o Prêmio Nobel por suas pesquisas em técnicas de imagem ultrarrápidas.",
+          image: "ahmed-zewail.jpg"
+        },
+        {
+          name: "Svante Arrhenius",
+          description: "Desenvolveu a teoria da dissociação eletrolítica e foi um dos primeiros a descrever o efeito do aumento da temperatura nas reações químicas.",
+          image: "svante-arrhenius.jpg"
+        },
+        {
+          name: "Robert Boyle",
+          description: "Considerado um dos fundadores da química moderna, formulou a lei de Boyle sobre a relação entre pressão e volume de gases.",
+          image: "robert-boyle.jpg"
+        },
+        {
+          name: "John Dalton",
+          description: "Desenvolveu a teoria atômica e formulou a lei das proporções múltiplas, que descreve como diferentes compostos podem ser formados a partir dos mesmos elementos.",
+          image: "john-dalton.jpg"
+        },
+        {
+          name: "Fritz Haber",
+          description: "Conhecido pelo desenvolvimento do processo Haber-Bosch para a síntese de amônia, que teve um grande impacto na agricultura moderna.",
+          image: "fritz-haber.jpg"
+        }
+      ];
+  
+      const chemistsContainer = document.getElementById('chemists-container');
+      const searchInput = document.getElementById('search-input');
+      const letterButtons = document.querySelectorAll('.letter-btn');
+  
+      function createChemistCard(chemist) {
+        const card = document.createElement('div');
+        card.className = 'chemist-card';
+        card.innerHTML = `
+          <img src="${chemist.image}" alt="${chemist.name}" class="chemist-image">
+          <div class="chemist-info">
+            <div class="chemist-name">${chemist.name}</div>
+            <div class="chemist-description">${chemist.description}</div>
+          </div>
+        `;
+        return card;
+      }
+  
+      function displayChemists(chemistsToShow) {
+        chemistsContainer.innerHTML = '';
+        chemistsToShow.forEach(chemist => {
+          chemistsContainer.appendChild(createChemistCard(chemist));
+        });
+      }
+  
+      function filterChemists(query) {
+        return chemists.filter(chemist => 
+          chemist.name.toLowerCase().includes(query.toLowerCase()) ||
+          chemist.description.toLowerCase().includes(query.toLowerCase())
+        );
+      }
+  
+      function filterByLetter(letter) {
+        if (letter === 'all') {
+          return chemists;
+        }
+        return chemists.filter(chemist => chemist.name.charAt(0).toLowerCase() === letter.toLowerCase());
+      }
+  
+      searchInput.addEventListener('input', (e) => {
+        const filteredChemists = filterChemists(e.target.value);
+        displayChemists(filteredChemists);
+      });
+  
+      letterButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          const letter = e.target.getAttribute('data-letter');
+          const filteredChemists = filterByLetter(letter);
+          displayChemists(filteredChemists);
+        });
+      });
+  
+      // Initial display
+      displayChemists(chemists);
+    </script>
+  </body>
+  </html>
